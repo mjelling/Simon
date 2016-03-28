@@ -1,4 +1,5 @@
-var counter=1;
+var counter=2;
+var level=1;
 var sequence=[];
 var clicksArray=[];
 var userInput=[];
@@ -6,7 +7,6 @@ function buildSequence() {
   for(var i=0; i<counter; i++){
     var x=Math.floor(Math.random()*4);
     sequence.push(x);
-  console.log(sequence);
   };
 };
 
@@ -33,10 +33,43 @@ function arrayConverter(){
   };
 };
 
+function checkResults(){
+  if(sequence===userInput){
+    alert("On to the next level");
+  }
+  else{
+    alert("You lost, refresh page to play again");
+  }
+};
+
+
+function simon(){
+  buildSequence();
+  //animation
+  //clicklog
+  if(sequence.length===clicksArray.length){
+    arrayConverter();
+    checkResults();
+    while (sequence===userInput){
+      counter +=1;
+      level +=1;
+      sequence=[];
+      clicksArray=[];
+      userInput=[];
+      $('li').text('Level '+level);
+      buildSequence();
+      if(sequence.length===clicksArray.length){
+        arrayConverter();
+        checkResults();
+      };
+    };
+  };
+};
 
 
 $( document ).ready(function() {
     logClicks();
+    simon();
 });
 
 
