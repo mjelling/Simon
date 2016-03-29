@@ -23,8 +23,8 @@ function doAllTheStuff() {
   if(sequence.length===clicksArray.length){
     arrayConverter();
     checkResults();
-    while (sequence===userInput){
-      console.log("while");
+    var yes= isUserInputEqual();
+    if(yes){
       counter +=1;
       level +=1;
       sequence=[];
@@ -60,8 +60,8 @@ function arrayConverter(){
 
 function isUserInputEqual() {
   var equals = true;
-  sequence.forEach(function( taco, index ) {
-    if (!userInput[index] === taco) {
+  sequence.forEach(function( value, index ) {
+    if (userInput[index] !== value) {
       equals = false;
     }
   });
@@ -77,6 +77,24 @@ function checkResults(){
   } else{
     alert("You lost, refresh page to play again");
   }
+};
+function animate(){
+  for(var i=0; i<sequence.length; i++){
+    setTimeout(function () {
+      if(sequence[i]===0){
+        $("#green").fadeOut(500).fadeIn(500);
+      }
+      else if(sequence[i]===1){
+        $("#red").fadeOut(500).fadeIn(500);
+      }
+      else if(sequence[i]===2){
+        $("#blue").fadeOut(500).fadeIn(500);
+      }
+      else if(sequence[i]===3){
+        $("#green").fadeOut(500).fadeIn(500);
+      }
+    }, 500);
+  };
 };
 
 
