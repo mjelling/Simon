@@ -18,25 +18,25 @@ function logClicks(){
   });
 };
 
+function startButton(){
+  $($( ":button" )).click(function() {
+    //if ($('li').text() == 'Level 1') {
+      animate();
+    //};
+  });
+};
+//     else {
+//       laterLevels()
+//   });
+// };
+  // run this: laterLevels()
+
 
 function doAllTheStuff() {
   if(sequence.length===clicksArray.length){
     arrayConverter();
     checkResults();
-    var yes= isUserInputEqual();
-    if(yes){
-      counter +=1;
-      level +=1;
-      sequence=[];
-      clicksArray=[];
-      userInput=[];
-      $('li').text('Level '+level);
-      buildSequence();
-      if(sequence.length===clicksArray.length){
-        arrayConverter();
-        checkResults();
-      };
-    };
+    laterLevels();
   };
 }
 
@@ -73,41 +73,84 @@ function checkResults(){
   var equals = isUserInputEqual();
 
   if(equals){
-    alert("On to the next level");
+  alert("Ready for the Next Level?");
   } else{
-    alert("You lost, refresh page to play again");
+  alert("You lost, refresh page to play again");
   }
 };
-function animate(){
-  for(var i=0; i<sequence.length; i++){
-    setTimeout(function () {
-      if(sequence[i]===0){
-        $("#green").fadeOut(500).fadeIn(500);
-      }
-      else if(sequence[i]===1){
-        $("#red").fadeOut(500).fadeIn(500);
-      }
-      else if(sequence[i]===2){
-        $("#blue").fadeOut(500).fadeIn(500);
-      }
-      else if(sequence[i]===3){
-        $("#green").fadeOut(500).fadeIn(500);
-      }
-    }, 500);
+function laterLevels(){
+  var yes= isUserInputEqual();
+  if(yes){
+    counter +=1;
+    level +=1;
+    sequence=[];
+    clicksArray=[];
+    userInput=[];
+    $('li').text('Level '+level);
+    buildSequence();
+    if(sequence.length===clicksArray.length){
+      arrayConverter();
+      checkResults();
+    };
   };
 };
 
+function animate(){
+  console.log("should animate!");
+  var things = [];
+  for(var i=0; i<sequence.length; i++){
+      if(sequence[i]===0){
+        things.push("green");
+        // $("#green").fadeOut(500).fadeIn(500);
+      }
+      else if(sequence[i]===1){
+        things.push("red");
+        // $("#red").fadeOut(500).fadeIn(500);
+      }
+      else if(sequence[i]===2){
+        things.push("blue");
+        // $("#blue").fadeOut(500).fadeIn(500);
+      }
+      else if(sequence[i]===3){
+        things.push("yellow");
+        // $("#yellow").fadeOut(500).fadeIn(500);
+      };
 
-function simon(){
-  buildSequence();
+  };
+
+  console.log(things);
+
+  // for loop that will iterate over the right sequence and set up a timeout that will be (500 x index)
+  for( var i=0; i<things.length; i++){
+
+
+
+
+    // Closures
+    (function() {
+      var thing = things[i];
+      setTimeout(function(){
+        console.log("setTimeout fired");
+        console.log($( "#"+thing ));
+        $( "#"+thing ).fadeOut(500).fadeIn(500);
+      },750*i)
+    }())
+
+
+
+
+  }
+};
+
   //animation
   //clicklog
-};
+
 
 
 $( document ).ready(function() {
+    buildSequence();
+    startButton();
     logClicks();
-    simon();
 });
 
 
