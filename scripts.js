@@ -12,9 +12,34 @@ function buildSequence() {
 
 function logClicks(){
   $('.box').click(function(e) {
+    console.log(e.target.id);
     clicksArray.push(e.target.id); // then e.srcElement.className has the class
+    doAllTheStuff();
   });
 };
+
+
+function doAllTheStuff() {
+  if(sequence.length===clicksArray.length){
+    arrayConverter();
+    checkResults();
+    while (sequence===userInput){
+      console.log("while");
+      counter +=1;
+      level +=1;
+      sequence=[];
+      clicksArray=[];
+      userInput=[];
+      $('li').text('Level '+level);
+      buildSequence();
+      if(sequence.length===clicksArray.length){
+        arrayConverter();
+        checkResults();
+      };
+    };
+  };
+}
+
 
 function arrayConverter(){
   for(var i=0; i<clicksArray.length; i++){
@@ -33,11 +58,23 @@ function arrayConverter(){
   };
 };
 
+function isUserInputEqual() {
+  var equals = true;
+  sequence.forEach(function( taco, index ) {
+    if (!userInput[index] === taco) {
+      equals = false;
+    }
+  });
+  return equals;
+}
+
 function checkResults(){
-  if(sequence===userInput){
+
+  var equals = isUserInputEqual();
+
+  if(equals){
     alert("On to the next level");
-  }
-  else{
+  } else{
     alert("You lost, refresh page to play again");
   }
 };
@@ -47,23 +84,6 @@ function simon(){
   buildSequence();
   //animation
   //clicklog
-  if(sequence.length===clicksArray.length){
-    arrayConverter();
-    checkResults();
-    while (sequence===userInput){
-      counter +=1;
-      level +=1;
-      sequence=[];
-      clicksArray=[];
-      userInput=[];
-      $('li').text('Level '+level);
-      buildSequence();
-      if(sequence.length===clicksArray.length){
-        arrayConverter();
-        checkResults();
-      };
-    };
-  };
 };
 
 
