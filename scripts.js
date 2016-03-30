@@ -30,7 +30,6 @@ function animate(){
         // $("#yellow").fadeOut(500).fadeIn(500);
       };
   };
-  console.log(boxes);
   // for loop that will iterate over the right sequence and set up a timeout that will be (500 x index)
   for( var i=0; i<boxes.length; i++){
     // Closures
@@ -46,7 +45,7 @@ function animate(){
   }
 };
 function startButton(){
-  $($( ":button" )).click(function() {
+  $($( "#initiate" )).click(function() {
     //if ($('li').text() == 'Level 1') {
       animate();
       $( "#initiate" ).prop( "disabled", true );
@@ -96,12 +95,16 @@ function checkResults(){
 
   if(equals){
   console.log("Proceeding to next level");
-  } else{
+  }
+  else{
     if(level===1){
-      $('h3').text("You lost! Refresh to play again!");
+      $('h3').text("You lost! Refresh the page to play again!");
+    }
+    else if(level===2){
+      $('h3').text("You beat the first level of Simon! Refresh the page to play again!");
     }
     else{
-    $('h3').text("You beat "+(level-1)+" levels of Simon! Refresh to play again!");
+    $('h3').text("You beat "+(level-1)+" levels of Simon! Refresh the page to play again!");
     }
   };
 };
