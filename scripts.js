@@ -52,6 +52,7 @@ function startButton(){
     //};
   });
 };
+
 function logClicks(){
   $('.box').click(function(e) {
     $( "#"+e.target.id ).fadeOut(500).fadeIn(500);
@@ -121,9 +122,9 @@ function checkResults(){
       sequence=[];
       clicksArray=[];
       userInput=[];
+      buildSequence();
       $( "#initiate" ).prop( "disabled", false );
       $('h3').text('Level '+level);
-      buildSequence();
       if(sequence.length===clicksArray.length){
         arrayConverter();
         checkResults();
