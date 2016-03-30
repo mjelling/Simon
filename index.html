@@ -5,18 +5,20 @@
     <link rel="stylesheet" href="styles.css">
     <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/2.2.2/jquery.min.js" charset="utf-8"></script>
     <script src="scripts.js" charset="utf-8"></script>
+    <link href='https://fonts.googleapis.com/css?family=Rock+Salt' rel='stylesheet' type='text/css'>
   </head>
   <body>
     <h1>Simon Online!!!</h1>
-    <a href="rules.html">Learn the rules</a>
-    <button type="button">"Initiate"</button>
-    <div class="Simon">
+    <form method="get" action="rules.html">
+      <button type="submit" button id="rules">Rules</button>
+    </form>
+    <button type="button" button id="initiate">Initiate</button>
+    <div class="Simon"></div>
       <div class="box" id="green"></div>
       <div class="box" id="red"></div>
       <div class="box" id="blue"></div>
       <div class="box" id="yellow"></div>
     </div>
-    <ul>"Level:"<ul>
-      <li>Level 1</li>
+    <h3>Level 1</h1>
   </body>
 </html>

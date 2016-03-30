@@ -22,6 +22,7 @@ function startButton(){
   $($( ":button" )).click(function() {
     //if ($('li').text() == 'Level 1') {
       animate();
+      $( "#initiate" ).prop( "disabled", true );
     //};
   });
 };
@@ -73,7 +74,7 @@ function checkResults(){
   var equals = isUserInputEqual();
 
   if(equals){
-  alert("Ready for the Next Level?");
+  console.log("Proceeding to next level");
   } else{
   alert("You lost, refresh page to play again");
   }
@@ -86,7 +87,8 @@ function laterLevels(){
     sequence=[];
     clicksArray=[];
     userInput=[];
-    $('li').text('Level '+level);
+    $( "#initiate" ).prop( "disabled", false );
+    $('h3').text('Level '+level);
     buildSequence();
     if(sequence.length===clicksArray.length){
       arrayConverter();
@@ -130,9 +132,8 @@ function animate(){
     (function() {
       var thing = things[i];
       setTimeout(function(){
-        console.log("setTimeout fired");
-        console.log($( "#"+thing ));
         $( "#"+thing ).fadeOut(500).fadeIn(500);
+        $('.green').play();  
       },750*i)
     }())
 
