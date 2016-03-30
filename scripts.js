@@ -9,7 +9,50 @@ function buildSequence() {
     sequence.push(x);
   };
 };
-
+function animate(){
+  console.log("should animate!");
+  var boxes = [];
+  for(var i=0; i<sequence.length; i++){
+      if(sequence[i]===0){
+        boxes.push("green");
+        // $("#green").fadeOut(500).fadeIn(500);
+      }
+      else if(sequence[i]===1){
+        boxes.push("red");
+        // $("#red").fadeOut(500).fadeIn(500);
+      }
+      else if(sequence[i]===2){
+        boxes.push("blue");
+        // $("#blue").fadeOut(500).fadeIn(500);
+      }
+      else if(sequence[i]===3){
+        boxes.push("yellow");
+        // $("#yellow").fadeOut(500).fadeIn(500);
+      };
+  };
+  console.log(boxes);
+  // for loop that will iterate over the right sequence and set up a timeout that will be (500 x index)
+  for( var i=0; i<boxes.length; i++){
+    // Closures
+    (function() {
+      var box = boxes[i];
+      setTimeout(function(){
+        $( "#"+box ).fadeOut(500).fadeIn(500);
+        $("."+box)[0].pause();
+        $("."+box)[0].currentTime = 0
+        $("."+box)[0].play();
+      },750*i)
+    }())
+  }
+};
+function startButton(){
+  $($( ":button" )).click(function() {
+    //if ($('li').text() == 'Level 1') {
+      animate();
+      $( "#initiate" ).prop( "disabled", true );
+    //};
+  });
+};
 function logClicks(){
   $('.box').click(function(e) {
     $( "#"+e.target.id ).fadeOut(500).fadeIn(500);
@@ -21,31 +64,6 @@ function logClicks(){
     doAllTheStuff();
   });
 };
-
-function startButton(){
-  $($( ":button" )).click(function() {
-    //if ($('li').text() == 'Level 1') {
-      animate();
-      $( "#initiate" ).prop( "disabled", true );
-    //};
-  });
-};
-//     else {
-//       laterLevels()
-//   });
-// };
-  // run this: laterLevels()
-
-
-function doAllTheStuff() {
-  if(sequence.length===clicksArray.length){
-    arrayConverter();
-    checkResults();
-    laterLevels();
-  };
-}
-
-
 function arrayConverter(){
   for(var i=0; i<clicksArray.length; i++){
     if(clicksArray[i]==="green"){
@@ -71,8 +89,7 @@ function isUserInputEqual() {
     }
   });
   return equals;
-}
-
+};
 function checkResults(){
 
   var equals = isUserInputEqual();
@@ -80,83 +97,44 @@ function checkResults(){
   if(equals){
   console.log("Proceeding to next level");
   } else{
-  alert("You lost, refresh page to play again");
-  }
+    if(level===1){
+      $('h3').text("You lost! Refresh to play again!");
+    }
+    else{
+    $('h3').text("You beat "+(level-1)+" levels of Simon! Refresh to play again!");
+    }
+  };
 };
-function laterLevels(){
-  var yes= isUserInputEqual();
-  if(yes){
-    counter +=1;
-    level +=1;
-    sequence=[];
-    clicksArray=[];
-    userInput=[];
-    $( "#initiate" ).prop( "disabled", false );
-    $('h3').text('Level '+level);
-    buildSequence();
-    if(sequence.length===clicksArray.length){
-      arrayConverter();
-      checkResults();
+//     else {
+//       laterLevels()
+//   });
+// };
+  // run this: laterLevels()
+  function laterLevels(){
+    var yes= isUserInputEqual();
+    if(yes){
+      counter +=1;
+      level +=1;
+      sequence=[];
+      clicksArray=[];
+      userInput=[];
+      $( "#initiate" ).prop( "disabled", false );
+      $('h3').text('Level '+level);
+      buildSequence();
+      if(sequence.length===clicksArray.length){
+        arrayConverter();
+        checkResults();
+      };
     };
   };
-};
 
-function animate(){
-  console.log("should animate!");
-  var things = [];
-  for(var i=0; i<sequence.length; i++){
-      if(sequence[i]===0){
-        things.push("green");
-        // $("#green").fadeOut(500).fadeIn(500);
-      }
-      else if(sequence[i]===1){
-        things.push("red");
-        // $("#red").fadeOut(500).fadeIn(500);
-      }
-      else if(sequence[i]===2){
-        things.push("blue");
-        // $("#blue").fadeOut(500).fadeIn(500);
-      }
-      else if(sequence[i]===3){
-        things.push("yellow");
-        // $("#yellow").fadeOut(500).fadeIn(500);
-      };
-
+function doAllTheStuff() {
+  if(sequence.length===clicksArray.length){
+    arrayConverter();
+    checkResults();
+    laterLevels();
   };
-
-  console.log(things);
-
-  // for loop that will iterate over the right sequence and set up a timeout that will be (500 x index)
-  for( var i=0; i<things.length; i++){
-
-
-
-
-    // Closures
-    (function() {
-      var thing = things[i];
-      setTimeout(function(){
-        $( "#"+thing ).fadeOut(500).fadeIn(500);
-        $("."+thing)[0].pause();
-        $("."+thing)[0].currentTime = 0
-        $("."+thing)[0].play();
-      },750*i)
-    }())
-
-
-
-
-
-
-
-  }
-};
-
-  //animation
-  //clicklog
-
-
-
+}
 $( document ).ready(function() {
     buildSequence();
     startButton();
