@@ -12,6 +12,10 @@ function buildSequence() {
 
 function logClicks(){
   $('.box').click(function(e) {
+    $( "#"+e.target.id ).fadeOut(500).fadeIn(500);
+    $("."+e.target.id)[0].pause();
+    $("."+e.target.id)[0].currentTime = 0
+    $("."+e.target.id)[0].play();
     console.log(e.target.id);
     clicksArray.push(e.target.id); // then e.srcElement.className has the class
     doAllTheStuff();
@@ -133,9 +137,14 @@ function animate(){
       var thing = things[i];
       setTimeout(function(){
         $( "#"+thing ).fadeOut(500).fadeIn(500);
-        $('.green').play();  
+        $("."+thing)[0].pause();
+        $("."+thing)[0].currentTime = 0
+        $("."+thing)[0].play();
       },750*i)
     }())
+
+
+
 
 
 
